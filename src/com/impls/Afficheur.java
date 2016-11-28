@@ -1,7 +1,7 @@
-package impls;
+package com.impls;
 
-import interfaces.Capteur;
-import interfaces.ObserveurDeCapteur;
+import com.interfaces.Capteur;
+import com.interfaces.ObserveurDeCapteur;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;

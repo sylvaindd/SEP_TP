@@ -1,6 +1,7 @@
-package impls;
+package com.impls;
 
-import interfaces.Capteur;
+import com.Canal;
+import com.interfaces.Capteur;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,6 +13,7 @@ import java.util.Observer;
 public class CapteurImpl implements Capteur {
 
 	List<Observer>	observers;
+	List<Canal>		canals;
 	Integer			v;
 
 	public CapteurImpl() {

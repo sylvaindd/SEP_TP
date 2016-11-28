@@ -1,4 +1,4 @@
-package interfaces;
+package com.interfaces;
 
 import java.util.Observer;
 
