@@ -1,7 +1,7 @@
-package impls;
+package com.impls;
 
-import interfaces.ObserveurDeCapteur;
-import interfaces.Subject;
+import com.interfaces.ObserveurDeCapteur;
+import com.interfaces.Subject;
 
 /**
  * Created by Sylvain on 28/11/2016.
