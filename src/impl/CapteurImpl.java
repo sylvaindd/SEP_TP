@@ -1,3 +1,7 @@
+package impl;
+
+import inter.Capteur;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Observer;

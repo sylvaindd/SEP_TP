@@ -1,3 +1,5 @@
+package inter;
+
 /**
  * Created by thoma on 28/11/2016.
  */

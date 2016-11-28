@@ -1,3 +1,5 @@
+import inter.Capteur;
+
 /**
  * Created by Sylvain on 28/11/2016.
  */
