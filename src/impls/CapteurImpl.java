@@ -1,6 +1,6 @@
-package impl;
+package impls;
 
-import inter.Capteur;
+import interfaces.Capteur;
 
 import java.util.ArrayList;
 import java.util.List;

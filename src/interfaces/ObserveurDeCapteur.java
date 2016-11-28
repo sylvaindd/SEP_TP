@@ -1,6 +1,4 @@
-package inter;
-
-import inter.Subject;
+package interfaces;
 
 /**
  * Created by thoma on 28/11/2016.
