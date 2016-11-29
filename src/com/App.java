@@ -4,7 +4,6 @@ import com.algos.DiffusionAtomique;
 import com.algos.DiffusionSequentielle;
 import com.impls.Canal;
 import com.impls.CapteurImpl;
-import com.interfaces.Capteur;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -19,36 +18,53 @@ import java.util.TimerTask;
  */
 public class App {
 
-    private static JFrame mJFrame;
+    private static JFrame sJFrame;
     private static CapteurImpl capteur;
+    private static Timer sTimer;
 
     public static void main(String[] args) {
+        capteur = new CapteurImpl(new DiffusionAtomique());
+
+        capteur.attach(new Canal("canal 1"));
+        capteur.attach(new Canal("canal 2"));
+        capteur.attach(new Canal("canal 3"));
+        capteur.attach(new Canal("canal 4"));
+
+        sTimer = new Timer();
 
         displayWindow();
 
     }
 
     private static void displayWindow() {
-        mJFrame = new JFrame();
+        sJFrame = new JFrame();
 
-        mJFrame.setTitle("Main App ");
-        mJFrame.setSize(300, 100);
-        mJFrame.setResizable(false);
-        mJFrame.setLocationRelativeTo(null);
-        mJFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        sJFrame.setTitle("Main App ");
+        sJFrame.setSize(300, 100);
+        sJFrame.setResizable(false);
+        sJFrame.setLocationRelativeTo(null);
+        sJFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
         JPanel mJPanelMain = new JPanel();
         mJPanelMain.setLayout(new BorderLayout());
         mJPanelMain.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        mJFrame.getContentPane().add(mJPanelMain);
+        sJFrame.getContentPane().add(mJPanelMain);
 
         JPanel panelValue = new JPanel();
         panelValue.setLayout(new BorderLayout());
+
+        addButtons(panelValue);
+
+        mJPanelMain.add(panelValue, BorderLayout.CENTER);
+
+        sJFrame.setVisible(true);
+    }
+
+    private static void addButtons(JPanel panelValue) {
         ButtonGroup bgAlgoDiffusion = new ButtonGroup();
-        JRadioButton jbrDiffusionAtomique = new JRadioButton("DiffusionAtomique");
+        final JRadioButton jbrDiffusionAtomique = new JRadioButton("DiffusionAtomique");
         jbrDiffusionAtomique.setSelected(true);
-        capteur = new CapteurImpl(new DiffusionAtomique());
 
         JRadioButton jbrDiffusionSequentielle = new JRadioButton("DiffusionSequentielle");
 
@@ -72,13 +88,7 @@ public class App {
         JButton jButtonStart = new JButton("START");
         jButtonStart.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                capteur.attach(new Canal("canal 1"));
-                capteur.attach(new Canal("canal 2"));
-                capteur.attach(new Canal("canal 3"));
-                capteur.attach(new Canal("canal 4"));
-
-                Timer timer = new Timer();
-                timer.scheduleAtFixedRate(new TimerTask() {
+                sTimer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
                         capteur.tick();
@@ -91,10 +101,6 @@ public class App {
         panelValue.add(jbrDiffusionAtomique, BorderLayout.WEST);
         panelValue.add(jbrDiffusionSequentielle, BorderLayout.EAST);
         panelValue.add(jButtonStart, BorderLayout.SOUTH);
-
-        mJPanelMain.add(panelValue, BorderLayout.CENTER);
-
-        mJFrame.setVisible(true);
     }
 
 }

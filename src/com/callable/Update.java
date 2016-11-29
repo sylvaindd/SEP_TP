@@ -1,7 +1,7 @@
 package com.callable;
 
 import com.impls.Afficheur;
-import com.interfaces.Capteur;
+import com.interfaces.CapteurAsync;
 
 import java.util.concurrent.Callable;
 
@@ -10,18 +10,17 @@ import java.util.concurrent.Callable;
  */
 public class Update implements Callable {
 
-
-    private final Capteur mCapteur;
+    private final CapteurAsync mCapteurAsync;
     private final Afficheur mAfficheur;
 
-    public Update(Capteur s, Afficheur afficheur) {
-        mCapteur = s;
+    public Update(CapteurAsync capteurAsync, Afficheur afficheur) {
+        mCapteurAsync = capteurAsync;
         mAfficheur = afficheur;
     }
 
     @Override
     public Object call() throws Exception {
-        mAfficheur.update(mCapteur);
+        mAfficheur.update(mCapteurAsync);
         return null;
     }
 }

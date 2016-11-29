@@ -1,7 +1,7 @@
 package com.impls;
 
-import com.interfaces.Capteur;
-import com.interfaces.ObserveurDeCapteur;
+import com.interfaces.CapteurAsync;
+import com.interfaces.ObserveurDeCapteurAsync;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -11,32 +11,31 @@ import java.util.concurrent.ExecutionException;
 /**
  * Created by Sylvain on 28/11/2016.
  */
-public class Afficheur implements ObserveurDeCapteur {
+public class Afficheur implements ObserveurDeCapteurAsync {
 
     private JLabel mJLabelValue;
-    private JFrame mJFrame;
-    private final Canal mCanal;
+    private final String mCanalName;
 
-    public Afficheur(Canal canal) {
-        mCanal = canal;
+    public Afficheur(String canalName) {
+        mCanalName = canalName;
 
         displayWindow();
     }
 
     private void displayWindow() {
-        mJFrame = new JFrame();
+        JFrame mJFrame = new JFrame();
 
-        mJFrame.setTitle("Afficheur " + mCanal.getName());
+        mJFrame.setTitle("Afficheur " + mCanalName);
         mJFrame.setSize(300, 100);
         mJFrame.setResizable(false);
         mJFrame.setLocationRelativeTo(null);
         mJFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel mJPanelMain = new JPanel();
-        mJPanelMain.setLayout(new BorderLayout());
-        mJPanelMain.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JPanel jPanelMain = new JPanel();
+        jPanelMain.setLayout(new BorderLayout());
+        jPanelMain.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        mJFrame.getContentPane().add(mJPanelMain);
+        mJFrame.getContentPane().add(jPanelMain);
 
         JPanel panelValue = new JPanel();
         panelValue.setLayout(new BorderLayout());
@@ -44,17 +43,17 @@ public class Afficheur implements ObserveurDeCapteur {
         mJLabelValue = new JLabel("null");
         panelValue.add(mJLabelValue, BorderLayout.CENTER);
 
-        mJPanelMain.add(panelValue, BorderLayout.CENTER);
+        jPanelMain.add(panelValue, BorderLayout.CENTER);
 
         mJFrame.setVisible(true);
     }
 
     @Override
-    public void update(Capteur capteur) {
+    public void update(CapteurAsync capteurAsync) {
         try {
-            String value = mCanal.getValue().get().toString();
+            String value = capteurAsync.getValue().get().toString();
             mJLabelValue.setText(value);
-            System.out.println("Valeur " + mCanal.getName() + " : " + value);
+            System.out.println("Valeur " + mCanalName + " : " + value);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {
