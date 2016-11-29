@@ -21,7 +21,8 @@ public class App {
     private static JFrame sJFrame;
     private static CapteurImpl capteur;
     private static Timer sTimer;
-
+private static  DiffusionAtomique diffusionAtomique;
+    private static DiffusionSequentielle diffusionSequentielle;
     public static void main(String[] args) {
         capteur = new CapteurImpl(new DiffusionAtomique());
 
@@ -32,6 +33,8 @@ public class App {
 
         sTimer = new Timer();
 
+        diffusionAtomique= new DiffusionAtomique();
+        diffusionSequentielle = new DiffusionSequentielle();
         displayWindow();
 
     }
@@ -72,9 +75,9 @@ public class App {
             @Override
             public void actionPerformed(ActionEvent e) {
                 if (jbrDiffusionAtomique.isSelected()) {
-                    capteur.setAlgo(new DiffusionAtomique());
+                    capteur.setAlgo(diffusionAtomique);
                 } else {
-                    capteur.setAlgo(new DiffusionSequentielle());
+                    capteur.setAlgo(diffusionSequentielle);
                 }
             }
         };
