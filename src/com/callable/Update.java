@@ -1,4 +1,4 @@
-package com;
+package com.callable;
 
 import com.impls.Afficheur;
 import com.interfaces.Capteur;

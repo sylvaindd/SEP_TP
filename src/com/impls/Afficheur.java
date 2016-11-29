@@ -6,19 +6,30 @@ import com.interfaces.ObserveurDeCapteur;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.util.concurrent.ExecutionException;
 
 /**
  * Created by Sylvain on 28/11/2016.
  */
 public class Afficheur implements ObserveurDeCapteur {
 
-    private final JLabel mJLabelValue;
-    private final JFrame mJFrame;
+    private static int sNbAfficheurs = 0;
 
-    public Afficheur() {
+    private JLabel mJLabelValue;
+    private JFrame mJFrame;
+    private final Canal mCanal;
+
+    public Afficheur(Canal canal) {
+        mCanal = canal;
+        sNbAfficheurs++;
+
+        displayWindow();
+    }
+
+    private void displayWindow() {
         mJFrame = new JFrame();
 
-        mJFrame.setTitle("Afficheur");
+        mJFrame.setTitle("Afficheur canal " + sNbAfficheurs);
         mJFrame.setSize(400, 300);
         mJFrame.setMinimumSize(new Dimension(400, 255));
         mJFrame.setResizable(true);
@@ -38,10 +49,18 @@ public class Afficheur implements ObserveurDeCapteur {
         panelValue.add(panelValue, BorderLayout.CENTER);
 
         mJPanelMain.add(panelValue, BorderLayout.CENTER);
+
+        mJFrame.setVisible(true);
     }
 
     @Override
     public void update(Capteur capteur) {
-        mJLabelValue.setText(capteur.getValue().toString());
+        try {
+            mJLabelValue.setText(mCanal.getValue().get().toString());
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        } catch (ExecutionException e) {
+            e.printStackTrace();
+        }
     }
 }
