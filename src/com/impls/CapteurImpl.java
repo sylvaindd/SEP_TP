@@ -13,47 +13,47 @@ import java.util.concurrent.Future;
  */
 public class CapteurImpl implements Capteur {
 
-	public void setAlgo(AlgoDiffusion mAlgo) {
-		this.mAlgo = mAlgo;
-		mAlgo.configure(this, mObservers);
-	}
+    private AlgoDiffusion mAlgo;
+    private List<Observer> mObservers;
+    private Integer v;
+    private Future mFuture;
 
-	private AlgoDiffusion	mAlgo;
-	private List<Observer>		mObservers;
-	private Integer				v;
-	private Future				mFuture;
+    public CapteurImpl(AlgoDiffusion algoDiffusion) {
+        mAlgo = algoDiffusion;
+        mObservers = new ArrayList<Observer>();
+        this.v = 0;
 
-	public CapteurImpl(AlgoDiffusion algoDiffusion) {
-		mAlgo = algoDiffusion;
-		mObservers = new ArrayList<Observer>();
-		this.v = 0;
+        mAlgo.configure(this, mObservers);
+    }
 
-		mAlgo.configure(this, mObservers);
-	}
+    public void setAlgo(AlgoDiffusion mAlgo) {
+        this.mAlgo = mAlgo;
+        mAlgo.configure(this, mObservers);
+    }
 
-	@Override
-	public void attach(Observer o) {
-		mObservers.add(o);
-	}
+    @Override
+    public void attach(Observer o) {
+        mObservers.add(o);
+    }
 
-	@Override
-	public void detach(Observer o) {
-		mObservers.remove(o);
-	}
+    @Override
+    public void detach(Observer o) {
+        mObservers.remove(o);
+    }
 
-	@Override
-	public Integer getValue() {
-		return v;
-	}
+    @Override
+    public Integer getValue() {
+        return v;
+    }
 
-	@Override
-	public void tick() {
-		v++;
-		mAlgo.execute();
-	}
+    @Override
+    public void tick() {
+        v++;
+        mAlgo.execute();
+    }
 
-	@Override
-	public void setFuture(Future future) {
-		mFuture = future;
-	}
+    @Override
+    public void setFuture(Future future) {
+        mFuture = future;
+    }
 }
