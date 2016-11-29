@@ -13,15 +13,12 @@ import java.util.concurrent.ExecutionException;
  */
 public class Afficheur implements ObserveurDeCapteur {
 
-    private static int sNbAfficheurs = 0;
-
     private JLabel mJLabelValue;
     private JFrame mJFrame;
     private final Canal mCanal;
 
     public Afficheur(Canal canal) {
         mCanal = canal;
-        sNbAfficheurs++;
 
         displayWindow();
     }
@@ -29,10 +26,9 @@ public class Afficheur implements ObserveurDeCapteur {
     private void displayWindow() {
         mJFrame = new JFrame();
 
-        mJFrame.setTitle("Afficheur canal " + sNbAfficheurs);
-        mJFrame.setSize(400, 300);
-        mJFrame.setMinimumSize(new Dimension(400, 255));
-        mJFrame.setResizable(true);
+        mJFrame.setTitle("Afficheur " + mCanal.getName());
+        mJFrame.setSize(300, 100);
+        mJFrame.setResizable(false);
         mJFrame.setLocationRelativeTo(null);
         mJFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
@@ -45,8 +41,8 @@ public class Afficheur implements ObserveurDeCapteur {
         JPanel panelValue = new JPanel();
         panelValue.setLayout(new BorderLayout());
         panelValue.add(new JLabel("Valeur : "), BorderLayout.WEST);
-        mJLabelValue = new JLabel();
-        panelValue.add(panelValue, BorderLayout.CENTER);
+        mJLabelValue = new JLabel("null");
+        panelValue.add(mJLabelValue, BorderLayout.CENTER);
 
         mJPanelMain.add(panelValue, BorderLayout.CENTER);
 
@@ -56,7 +52,9 @@ public class Afficheur implements ObserveurDeCapteur {
     @Override
     public void update(Capteur capteur) {
         try {
-            mJLabelValue.setText(mCanal.getValue().get().toString());
+            String value = mCanal.getValue().get().toString();
+            mJLabelValue.setText(value);
+            System.out.println("Valeur " + mCanal.getName() + " : " + value);
         } catch (InterruptedException e) {
             e.printStackTrace();
         } catch (ExecutionException e) {

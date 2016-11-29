@@ -1,5 +1,6 @@
 package com.impls;
 
+import com.interfaces.AlgoDiffusion;
 import com.interfaces.Capteur;
 import com.interfaces.Observer;
 
@@ -12,24 +13,27 @@ import java.util.concurrent.Future;
  */
 public class CapteurImpl implements Capteur {
 
-    List<Observer> observers;
-    List<Canal> canals;
-    Integer v;
-    Future mFuture;
+    private final AlgoDiffusion mAlgo;
+    private List<Observer> mObservers;
+    private Integer v;
+    private Future mFuture;
 
-    public CapteurImpl() {
-        this.observers = new ArrayList<Observer>();
+    public CapteurImpl(AlgoDiffusion algoDiffusion) {
+        mAlgo = algoDiffusion;
+        mObservers = new ArrayList<Observer>();
         this.v = 0;
+
+        mAlgo.configure(this, mObservers);
     }
 
     @Override
     public void attach(Observer o) {
-        observers.add(o);
+        mObservers.add(o);
     }
 
     @Override
     public void detach(Observer o) {
-        observers.remove(o);
+        mObservers.remove(o);
     }
 
     @Override
@@ -40,6 +44,7 @@ public class CapteurImpl implements Capteur {
     @Override
     public void tick() {
         v++;
+        mAlgo.execute();
     }
 
     @Override

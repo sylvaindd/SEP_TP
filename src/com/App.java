@@ -1,8 +1,12 @@
 package com;
 
+import com.algos.DiffusionAtomique;
 import com.impls.Canal;
 import com.impls.CapteurImpl;
 import com.interfaces.Capteur;
+
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * Created by Guillaume on 29/11/2016.
@@ -10,21 +14,20 @@ import com.interfaces.Capteur;
 public class App {
 
     public static void main(String[] args) {
-        Capteur capteur = new CapteurImpl();
+        final Capteur capteur = new CapteurImpl(new DiffusionAtomique());
 
-        Canal canal1 = new Canal();
-        Canal canal2 = new Canal();
+        capteur.attach(new Canal("canal 1"));
+        capteur.attach(new Canal("canal 2"));
+        capteur.attach(new Canal("canal 3"));
+        capteur.attach(new Canal("canal 4"));
 
-        capteur.attach(canal1);
-        capteur.attach(canal2);
-
-        while (true) {
-            capteur.tick();
-            try {
-                Thread.sleep(1000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Timer timer = new Timer();
+        timer.scheduleAtFixedRate(new TimerTask() {
+            @Override
+            public void run() {
+                capteur.tick();
+                System.out.println("valeur capteur : " + capteur.getValue());
             }
-        }
+        }, 0, 1000);
     }
 }

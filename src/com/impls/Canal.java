@@ -16,17 +16,23 @@ import java.util.concurrent.TimeUnit;
 public class Canal implements ObserveurDeCapteur {
 
     private final Afficheur mAfficheur;
+    private final String mName;
     private Capteur mCapteur;
     ScheduledExecutorService mScheduler;
 
-    public Canal() {
-        mScheduler = new ScheduledThreadPoolExecutor(1);
+    public Canal(String name) {
+        mName = name;
+        mScheduler = new ScheduledThreadPoolExecutor(2);
         mAfficheur = new Afficheur(this);
     }
 
     public Future getValue() {
         GetValue value = new GetValue(mCapteur);
         return mScheduler.schedule(value, 810, TimeUnit.MILLISECONDS);
+    }
+
+    public String getName() {
+        return mName;
     }
 
     @Override
