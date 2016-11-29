@@ -13,7 +13,11 @@ import java.util.concurrent.Future;
  */
 public class CapteurImpl implements Capteur {
 
-	private final AlgoDiffusion	mAlgo;
+	public void setAlgo(AlgoDiffusion mAlgo) {
+		this.mAlgo = mAlgo;
+	}
+
+	private AlgoDiffusion	mAlgo;
 	private List<Observer>		mObservers;
 	private Integer				v;
 	private Future				mFuture;
