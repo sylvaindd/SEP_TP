@@ -15,6 +15,7 @@ public class CapteurImpl implements Capteur {
 
 	public void setAlgo(AlgoDiffusion mAlgo) {
 		this.mAlgo = mAlgo;
+		mAlgo.configure(this, mObservers);
 	}
 
 	private AlgoDiffusion	mAlgo;
