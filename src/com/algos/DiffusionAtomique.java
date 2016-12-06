@@ -9,21 +9,22 @@ import com.interfaces.Observer;
  */
 public class DiffusionAtomique implements AlgoDiffusion {
 
-    private Capteur mCapteur;
+	private Capteur mCapteur;
 
-    @Override
-    public void configure(Capteur s) {
-        mCapteur = s;
-    }
+	@Override
+	public void configure(Capteur s) {
+		mCapteur = s;
+	}
 
-    @Override
-    public void execute() {
-        if (mCapteur.isListRemainingEmpty()) {
-            mCapteur.inc();
-            mCapteur.initListIdFromCanals();
-        }
-        for (Observer observer : mCapteur.getListObserver()) {
-            observer.update(mCapteur);
-        }
-    }
+	@Override
+	public void execute() {
+		if (mCapteur.isListRemainingEmpty()) {
+			mCapteur.inc();
+			mCapteur.initListIdFromCanals();
+			for (Observer observer : mCapteur.getListObserver()) {
+				observer.update(mCapteur);
+			}
+			System.out.println("Algo fini");
+		}
+	}
 }
