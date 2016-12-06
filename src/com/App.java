@@ -21,8 +21,9 @@ public class App {
     private static JFrame sJFrame;
     private static CapteurImpl capteur;
     private static Timer sTimer;
-private static  DiffusionAtomique diffusionAtomique;
+    private static DiffusionAtomique diffusionAtomique;
     private static DiffusionSequentielle diffusionSequentielle;
+
     public static void main(String[] args) {
         capteur = new CapteurImpl(new DiffusionAtomique());
 
@@ -33,10 +34,10 @@ private static  DiffusionAtomique diffusionAtomique;
 
         sTimer = new Timer();
 
-        diffusionAtomique= new DiffusionAtomique();
+        diffusionAtomique = new DiffusionAtomique();
         diffusionSequentielle = new DiffusionSequentielle();
-        displayWindow();
 
+        displayWindow();
     }
 
     private static void displayWindow() {
