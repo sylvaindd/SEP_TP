@@ -16,6 +16,7 @@ import java.util.concurrent.ExecutionException;
 public class Afficheur implements ObserveurDeCapteurAsync {
 
     private final int mNumber;
+    private final Canal mCanal;
     private JLabel mJLabelValue;
     private final String mCanalName;
 
@@ -32,9 +33,10 @@ public class Afficheur implements ObserveurDeCapteurAsync {
         marginWidth = (int) ((screenWidth - (nbByWidth * 300)) / (nbByWidth - 1));
     }
 
-    public Afficheur(String canalName, int number) {
+    public Afficheur(String canalName, int number, Canal canal) {
         mCanalName = canalName;
         mNumber = number;
+        mCanal = canal;
         displayWindow();
     }
 
@@ -49,10 +51,11 @@ public class Afficheur implements ObserveurDeCapteurAsync {
         mJFrame.setLocation(posX, posY);
         mJFrame.setResizable(false);
         mJFrame.setDefaultCloseOperation(WindowConstants.DO_NOTHING_ON_CLOSE);
-        mJFrame.addWindowStateListener(new WindowAdapter() {
+        mJFrame.addWindowListener(new WindowAdapter() {
             @Override
             public void windowClosing(WindowEvent e) {
                 e.getWindow().dispose();
+                mCanal.detach();
                 //TODO : unregister
             }
         });

@@ -22,7 +22,11 @@ public class Canal implements ObserveurDeCapteur, CapteurAsync {
 
 	public Canal(String name, int number) {
 		mScheduler = new ScheduledThreadPoolExecutor(2);
-		mAfficheur = new Afficheur(name, number);
+		mAfficheur = new Afficheur(name, number, this);
+	}
+
+	public void detach() {
+		mCapteur.detach(this);
 	}
 
 	@Override
