@@ -9,7 +9,7 @@ import java.util.List;
  */
 public class DiffusionSequentielle implements AlgoDiffusion {
     private Capteur mCapteur;
-
+    private int counter;
     @Override
     public void configure(Capteur s) {
         mCapteur = s;
@@ -17,6 +17,14 @@ public class DiffusionSequentielle implements AlgoDiffusion {
 
     @Override
     public void execute() {
+            counter++;
+        if (mCapteur.isListRemainingEmpty()) {
+            mCapteur.setValue(counter);
+            mCapteur.initListIdFromCanals();
+            for (Observer observer : mCapteur.getListObserver()) {
+                observer.update(mCapteur);
+            }
+        }
 
     }
 }

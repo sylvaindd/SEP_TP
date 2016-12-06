@@ -13,6 +13,8 @@ public interface Capteur extends Subject {
 
     Integer getValue();
 
+    void setValue(Integer value);
+
     List<Observer> getListObserver();
 
     void tick();
