@@ -7,4 +7,6 @@ import java.util.concurrent.Future;
  */
 public interface Observer<T> {
     Future update(T subject);
+
+    Integer getId();
 }

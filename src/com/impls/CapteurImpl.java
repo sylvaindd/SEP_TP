@@ -15,6 +15,7 @@ public class CapteurImpl implements Capteur {
 
     private AlgoDiffusion mAlgo;
     private List<Observer> mObservers;
+    private List<Integer> mObserverRemaining;
     private Integer v;
     private Future mFuture;
 
@@ -23,22 +24,28 @@ public class CapteurImpl implements Capteur {
         mObservers = new ArrayList<Observer>();
         this.v = 0;
 
-        mAlgo.configure(this, mObservers);
+        mAlgo.configure(this);
     }
 
     public void setAlgo(AlgoDiffusion mAlgo) {
         this.mAlgo = mAlgo;
-        mAlgo.configure(this, mObservers);
+        mAlgo.configure(this);
     }
 
     @Override
     public void attach(Observer o) {
         mObservers.add(o);
+        if (mObserverRemaining != null) {
+            mObserverRemaining.add(o.getId());
+        }
     }
 
     @Override
     public void detach(Observer o) {
         mObservers.remove(o);
+        if (mObserverRemaining != null) {
+            mObserverRemaining.remove(o.getId());
+        }
     }
 
     @Override
@@ -47,13 +54,41 @@ public class CapteurImpl implements Capteur {
     }
 
     @Override
+    public List<Observer> getListObserver() {
+        return mObservers;
+    }
+
+    @Override
     public void tick() {
-        v++;
         mAlgo.execute();
+    }
+
+    @Override
+    public void inc() {
+        v++;
     }
 
     @Override
     public void setFuture(Future future) {
         mFuture = future;
     }
+
+    @Override
+    public void removeIdFromList(Integer mCanalId) {
+        mObserverRemaining.remove(mCanalId);
+    }
+
+    @Override
+    public void initListIdFromCanals() {
+        mObserverRemaining = new ArrayList<Integer>();
+        for (Observer observer : mObservers) {
+            mObserverRemaining.add(observer.getId());
+        }
+    }
+
+    @Override
+    public boolean isListRemainingEmpty() {
+        return mObserverRemaining == null || mObserverRemaining.isEmpty();
+    }
+
 }

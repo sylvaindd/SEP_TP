@@ -18,7 +18,7 @@ import java.util.TimerTask;
  */
 public class App {
 
-    private static final int NB_CAPTEUR = 10;
+    private static final int NB_CAPTEUR = 4;
     private static JFrame sJFrame;
     private static CapteurImpl capteur;
     private static Timer sTimer;

@@ -1,8 +1,6 @@
 package com.algos;
 
-import com.interfaces.AlgoDiffusion;
-import com.interfaces.Observer;
-import com.interfaces.Subject;
+import com.interfaces.*;
 
 import java.util.List;
 
@@ -10,13 +8,11 @@ import java.util.List;
  * Created by thoma on 28/11/2016.
  */
 public class DiffusionSequentielle implements AlgoDiffusion {
-    private List<Observer> mList;
-    private Subject mSubject;
+    private Capteur mCapteur;
 
     @Override
-    public void configure(Subject s, List<Observer> list) {
-        mList = list;
-        mSubject = s;
+    public void configure(Capteur s) {
+        mCapteur = s;
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.interfaces;
 
+import java.util.List;
 import java.util.concurrent.Future;
 
 /**
@@ -12,7 +13,17 @@ public interface Capteur extends Subject {
 
     Integer getValue();
 
+    List<Observer> getListObserver();
+
     void tick();
 
+    void inc();
+
     void setFuture(Future future);
+
+    void removeIdFromList(Integer mCanalId);
+
+    void initListIdFromCanals();
+
+    boolean isListRemainingEmpty();
 }
