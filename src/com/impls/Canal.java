@@ -16,25 +16,25 @@ import java.util.concurrent.TimeUnit;
  */
 public class Canal implements ObserveurDeCapteur, CapteurAsync {
 
-    private final Afficheur mAfficheur;
-    private Capteur mCapteur;
-    private ScheduledExecutorService mScheduler;
+	private final Afficheur				mAfficheur;
+	private Capteur						mCapteur;
+	private ScheduledExecutorService	mScheduler;
 
-    public Canal(String name) {
-        mScheduler = new ScheduledThreadPoolExecutor(2);
-        mAfficheur = new Afficheur(name);
-    }
+	public Canal(String name, int number) {
+		mScheduler = new ScheduledThreadPoolExecutor(2);
+		mAfficheur = new Afficheur(name, number);
+	}
 
-    @Override
-    public Future getValue() {
-        GetValue value = new GetValue(mCapteur);
-        return mScheduler.schedule(value, 810, TimeUnit.MILLISECONDS);
-    }
+	@Override
+	public Future getValue() {
+		GetValue value = new GetValue(mCapteur);
+		return mScheduler.schedule(value, 810, TimeUnit.MILLISECONDS);
+	}
 
-    @Override
-    public Future update(Capteur s) {
-        mCapteur = s;
-        Update update = new Update(this, mAfficheur);
-        return mScheduler.schedule(update, 720, TimeUnit.MILLISECONDS);
-    }
+	@Override
+	public Future update(Capteur s) {
+		mCapteur = s;
+		Update update = new Update(this, mAfficheur);
+		return mScheduler.schedule(update, 720, TimeUnit.MILLISECONDS);
+	}
 }
