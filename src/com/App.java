@@ -29,7 +29,6 @@ public class App {
         capteur = new CapteurImpl(new DiffusionAtomique());
 
         for (int i = 0; i < NB_CAPTEUR; i++) {
-
             capteur.attach(new Canal("canal " + (i + 1), i));
         }
 
@@ -45,7 +44,7 @@ public class App {
         sJFrame = new JFrame();
 
         sJFrame.setTitle("Main App ");
-        sJFrame.setSize(300, 100);
+        sJFrame.setSize(300, 150);
         sJFrame.setResizable(false);
         sJFrame.setLocationRelativeTo(null);
         sJFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -56,17 +55,17 @@ public class App {
 
         sJFrame.getContentPane().add(mJPanelMain);
 
-        JPanel panelValue = new JPanel();
-        panelValue.setLayout(new BorderLayout());
+        JPanel panelButtons = new JPanel();
+        panelButtons.setLayout(new BorderLayout());
 
-        addButtons(panelValue);
+        addButtons(panelButtons);
 
-        mJPanelMain.add(panelValue, BorderLayout.CENTER);
+        mJPanelMain.add(panelButtons, BorderLayout.CENTER);
 
         sJFrame.setVisible(true);
     }
 
-    private static void addButtons(JPanel panelValue) {
+    private static void addButtons(JPanel panelButtons) {
         ButtonGroup bgAlgoDiffusion = new ButtonGroup();
         final JRadioButton jbrDiffusionAtomique = new JRadioButton("DiffusionAtomique");
         jbrDiffusionAtomique.setSelected(true);
@@ -103,9 +102,13 @@ public class App {
             }
         });
 
-        panelValue.add(jbrDiffusionAtomique, BorderLayout.WEST);
-        panelValue.add(jbrDiffusionSequentielle, BorderLayout.EAST);
-        panelValue.add(jButtonStart, BorderLayout.SOUTH);
+        JPanel panelChoice = new JPanel();
+        panelChoice.setLayout(new GridLayout(2, 1));
+        panelChoice.add(jbrDiffusionAtomique);
+        panelChoice.add(jbrDiffusionSequentielle);
+
+        panelButtons.add(panelChoice, BorderLayout.CENTER);
+        panelButtons.add(jButtonStart, BorderLayout.SOUTH);
     }
 
 }
