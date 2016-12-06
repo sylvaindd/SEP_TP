@@ -36,9 +36,9 @@ public class CapteurImpl implements Capteur {
     @Override
     public void attach(Observer o) {
         mObservers.add(o);
-        if (mObserverRemaining != null) {
-            mObserverRemaining.add(o.getId());
-        }
+//        if (mObserverRemaining != null) {
+//            mObserverRemaining.add(o.getId());
+//        }
     }
 
     @Override
