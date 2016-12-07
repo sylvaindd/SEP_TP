@@ -17,13 +17,16 @@ public class CapteurImpl implements Capteur {
     private List<Observer> mObservers;
     private List<Integer> mObserverRemaining;
     private Integer v;
+    private Integer copy_v;
+    private boolean isReading;
     private Future mFuture;
 
 
     public CapteurImpl(AlgoDiffusion algoDiffusion) {
         mAlgo = algoDiffusion;
-        mObservers = new ArrayList<Observer>();
+        mObservers = new ArrayList<>();
         this.v = 0;
+        isReading = false;
 
         mAlgo.configure(this);
     }
@@ -36,9 +39,6 @@ public class CapteurImpl implements Capteur {
     @Override
     public void attach(Observer o) {
         mObservers.add(o);
-//        if (mObserverRemaining != null) {
-//            mObserverRemaining.add(o.getId());
-//        }
     }
 
     @Override
@@ -51,11 +51,7 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public Integer getValue() {
-        return v;
-    }
-
-    public void setValue(Integer v) {
-        this.v = v;
+        return copy_v;
     }
 
     @Override
@@ -71,6 +67,9 @@ public class CapteurImpl implements Capteur {
     @Override
     public void inc() {
         v++;
+        if (!isReading) {
+            copy_v = v;
+        }
     }
 
     @Override
@@ -86,7 +85,7 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public void initListIdFromCanals() {
-        mObserverRemaining = new ArrayList<Integer>();
+        mObserverRemaining = new ArrayList<>();
         for (Observer observer : mObservers) {
             mObserverRemaining.add(observer.getId());
         }
@@ -97,4 +96,8 @@ public class CapteurImpl implements Capteur {
         return mObserverRemaining == null || mObserverRemaining.isEmpty();
     }
 
+    @Override
+    public void setReading(boolean reading) {
+        isReading = reading;
+    }
 }

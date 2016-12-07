@@ -9,7 +9,6 @@ import com.interfaces.Observer;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -19,12 +18,12 @@ import java.util.TimerTask;
  */
 public class App {
 
-    public static final int NB_CAPTEUR = 10;
-    private static JFrame sJFrame;
+    private static final int NB_CAPTEUR = 10;
     private static CapteurImpl capteur;
     private static Timer sTimer;
     private static DiffusionAtomique diffusionAtomique;
     private static DiffusionSequentielle diffusionSequentielle;
+    private static boolean sIsStarted = false;
 
     public static void main(String[] args) {
         capteur = new CapteurImpl(new DiffusionAtomique());
@@ -33,8 +32,6 @@ public class App {
             capteur.attach(new Canal(i, capteur));
         }
 
-        sTimer = new Timer();
-
         diffusionAtomique = new DiffusionAtomique();
         diffusionSequentielle = new DiffusionSequentielle();
 
@@ -42,7 +39,7 @@ public class App {
     }
 
     private static void displayWindow() {
-        sJFrame = new JFrame();
+        JFrame sJFrame = new JFrame();
 
         sJFrame.setTitle("Main App ");
         sJFrame.setSize(300, 150);
@@ -73,14 +70,11 @@ public class App {
 
         JRadioButton jbrDiffusionSequentielle = new JRadioButton("DiffusionSequentielle");
 
-        ActionListener changeDiffusionSelected = new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if (jbrDiffusionAtomique.isSelected()) {
-                    capteur.setAlgo(diffusionAtomique);
-                } else {
-                    capteur.setAlgo(diffusionSequentielle);
-                }
+        ActionListener changeDiffusionSelected = e -> {
+            if (jbrDiffusionAtomique.isSelected()) {
+                capteur.setAlgo(diffusionAtomique);
+            } else {
+                capteur.setAlgo(diffusionSequentielle);
             }
         };
 
@@ -91,35 +85,39 @@ public class App {
         bgAlgoDiffusion.add(jbrDiffusionSequentielle);
 
         JButton jButtonStart = new JButton("START");
-        jButtonStart.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
+        jButtonStart.addActionListener(e -> {
+            if (sIsStarted) {
+                sTimer.cancel();
+                sIsStarted = false;
+                ((JButton) e.getSource()).setText("START");
+            } else {
+                sTimer = new Timer();
                 sTimer.scheduleAtFixedRate(new TimerTask() {
                     @Override
                     public void run() {
                         capteur.tick();
-                        // System.out.println("valeur capteur : " +
-                        // capteur.getValue());
                     }
                 }, 0, 1000);
+                sIsStarted = true;
+                ((JButton) e.getSource()).setText("STOP");
             }
         });
+
         JButton jButtonAddCanal = new JButton("Add Canal");
-        jButtonAddCanal.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                int prev = 0, id = 0;
-                capteur.getListObserver().sort((Observer o1, Observer o2) -> o1.getId().compareTo(o2.getId()));
-                for (Observer observer : capteur.getListObserver()) {
-                    if (observer.getId() > prev + 1) {
-                        id = prev + 1;
-                        break;
-                    } else {
-                        prev = observer.getId();
-                    }
-                }
-                if (id == 0)
+        jButtonAddCanal.addActionListener(e -> {
+            int prev = 0, id = 0;
+            capteur.getListObserver().sort((Observer o1, Observer o2) -> o1.getId().compareTo(o2.getId()));
+            for (Observer observer : capteur.getListObserver()) {
+                if (observer.getId() > prev + 1) {
                     id = prev + 1;
-                capteur.attach(new Canal(id, capteur));
+                    break;
+                } else {
+                    prev = observer.getId();
+                }
             }
+            if (id == 0)
+                id = prev + 1;
+            capteur.attach(new Canal(id, capteur));
         });
 
         JPanel panelChoice = new JPanel();

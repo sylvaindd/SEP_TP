@@ -13,8 +13,6 @@ public interface Capteur extends Subject {
 
     Integer getValue();
 
-    void setValue(Integer value);
-
     List<Observer> getListObserver();
 
     void tick();
@@ -28,4 +26,6 @@ public interface Capteur extends Subject {
     void initListIdFromCanals();
 
     boolean isListRemainingEmpty();
+
+    void setReading(boolean reading);
 }

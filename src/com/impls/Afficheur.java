@@ -17,10 +17,8 @@ public class Afficheur implements ObserveurDeCapteurAsync {
 
     private final int mNumber;
     private final Canal mCanal;
-    protected JLabel mJLabelValue;
-    protected final String mCanalName;
-
-    private static final double screenHeight;
+    private JLabel mJLabelValue;
+    private final String mCanalName;
     private static final double screenWidth;
     private static final int nbByWidth;
     private static final int marginWidth;
@@ -28,7 +26,6 @@ public class Afficheur implements ObserveurDeCapteurAsync {
     static {
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
         screenWidth = screenSize.getWidth();
-        screenHeight = screenSize.getHeight();
         nbByWidth = (int) ((screenWidth - 50) / 300);
         marginWidth = (int) ((screenWidth - (nbByWidth * 300)) / (nbByWidth - 1));
     }
@@ -55,7 +52,6 @@ public class Afficheur implements ObserveurDeCapteurAsync {
             public void windowClosing(WindowEvent e) {
                 e.getWindow().dispose();
                 mCanal.detach();
-                // TODO : unregister
             }
         });
 
@@ -82,9 +78,7 @@ public class Afficheur implements ObserveurDeCapteurAsync {
             String value = capteurAsync.getValue().get().toString();
             mJLabelValue.setText(value);
             System.out.println("Valeur " + mCanalName + " : " + value);
-        } catch (InterruptedException e) {
-            e.printStackTrace();
-        } catch (ExecutionException e) {
+        } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }
     }
