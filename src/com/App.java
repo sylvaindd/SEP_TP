@@ -143,7 +143,7 @@ public class App {
 		JCheckBox jCheckBoxDebug = new JCheckBox("Debug");
 		jCheckBoxDebug.setSelected(false);
 		jCheckBoxDebug.addActionListener(e -> {
-            if(jCheckBoxDebug.isSelected()){
+            if(!jCheckBoxDebug.isSelected()){
                 Constants.DEBUG = false;
             }else{
 				Constants.DEBUG = true;
@@ -157,7 +157,7 @@ public class App {
         panelChoice.add(jbrDiffusionEpoque);
 
         JPanel subPanelButtons = new JPanel();
-        subPanelButtons.setLayout(new GridLayout(2, 1));
+        subPanelButtons.setLayout(new GridLayout(3, 1));
         subPanelButtons.add(jButtonAddCanal);
         subPanelButtons.add(jButtonStart);
         subPanelButtons.add(jCheckBoxDebug);
