@@ -2,6 +2,7 @@ package com.impls;
 
 import com.interfaces.CapteurAsync;
 import com.interfaces.ObserveurDeCapteurAsync;
+import com.utils.Constants;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -77,7 +78,7 @@ public class Afficheur implements ObserveurDeCapteurAsync {
         try {
             String value = capteurAsync.getValue().get().toString();
             mJLabelValue.setText(value);
-            System.out.println("Valeur " + mCanalName + " : " + value);
+            Constants.showDebug(this.getClass(), "Valeur " + mCanalName + " : " + value);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

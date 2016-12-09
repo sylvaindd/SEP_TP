@@ -7,9 +7,9 @@ public class Constants {
     public static boolean DEBUG = false;
     public static final int NB_CAPTEUR = 8;
     public static final int CORE_POOL_SIZE = 20;
-    public static void showDebug(String value){
+    public static void showDebug(Class cl, String value){
         if(DEBUG){
-            System.out.println(value);
+            System.out.println(cl.getName()+" "+value);
         }
     }
 }
