@@ -7,7 +7,6 @@ import com.interfaces.CapteurAsync;
 import com.interfaces.ObserveurDeCapteur;
 import com.utils.Constants;
 
-import java.util.Random;
 import java.util.concurrent.*;
 
 /**
@@ -34,7 +33,7 @@ public class Canal implements ObserveurDeCapteur, CapteurAsync {
     @Override
     public Future getValue() {
         GetValue value = new GetValue(mCapteur, mId);
-        int random = ThreadLocalRandom.current().nextInt(500, 2000 + 1);
+        int random = ThreadLocalRandom.current().nextInt(500, 3000 + 1);
         return mScheduler.schedule(value, random, TimeUnit.MILLISECONDS);
     }
 
@@ -42,7 +41,7 @@ public class Canal implements ObserveurDeCapteur, CapteurAsync {
     public Future update(Capteur s) {
         mCapteur = s;
         Update update = new Update(this, mAfficheur);
-        int random = ThreadLocalRandom.current().nextInt(500, 2000 + 1);
+        int random = ThreadLocalRandom.current().nextInt(500, 3000 + 1);
         return mScheduler.schedule(update, random, TimeUnit.MILLISECONDS);
     }
 
