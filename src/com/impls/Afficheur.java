@@ -74,7 +74,7 @@ public class Afficheur implements ObserveurDeCapteurAsync {
     }
 
     @Override
-    public void update(CapteurAsync capteurAsync) {
+    public void  update(CapteurAsync capteurAsync) {
         try {
             String value = capteurAsync.getValue().get().toString();
             mJLabelValue.setText(value);

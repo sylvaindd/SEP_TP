@@ -29,15 +29,16 @@ public class App {
     private static JLabel mJLabelValueCapteur;
 
     public static void main(String[] args) {
-        capteur = new CapteurImpl(new DiffusionAtomique());
-
-        for (int i = 0; i < Constants.NB_CAPTEUR; i++) {
-            capteur.attach(new Canal(i, capteur));
-        }
 
         diffusionAtomique = new DiffusionAtomique();
         diffusionSequentielle = new DiffusionSequentielle();
         diffusionEpoque = new DiffusionEpoque();
+
+        capteur = new CapteurImpl(diffusionAtomique);
+
+        for (int i = 0; i < Constants.NB_CAPTEUR; i++) {
+            capteur.attach(new Canal(i, capteur));
+        }
 
         displayWindow();
     }
