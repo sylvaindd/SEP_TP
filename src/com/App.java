@@ -6,10 +6,12 @@ import com.algos.DiffusionSequentielle;
 import com.impls.Canal;
 import com.impls.CapteurImpl;
 import com.interfaces.Observer;
+import com.utils.Constants;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
+import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -139,6 +141,16 @@ public class App {
             capteur.attach(new Canal(id, capteur));
         });
 
+		JCheckBox jCheckBoxDebug = new JCheckBox("Debug");
+		jCheckBoxDebug.setSelected(false);
+		jCheckBoxDebug.addActionListener(e -> {
+            if(jCheckBoxDebug.isSelected()){
+                Constants.DEBUG = false;
+            }else{
+				Constants.DEBUG = true;
+			}
+        });
+
         JPanel panelChoice = new JPanel();
         panelChoice.setLayout(new GridLayout(3, 1));
         panelChoice.add(jbrDiffusionAtomique);
@@ -149,6 +161,7 @@ public class App {
         subPanelButtons.setLayout(new GridLayout(2, 1));
         subPanelButtons.add(jButtonAddCanal);
         subPanelButtons.add(jButtonStart);
+        subPanelButtons.add(jCheckBoxDebug);
 
         panelButtons.add(panelChoice, BorderLayout.CENTER);
         panelButtons.add(subPanelButtons, BorderLayout.SOUTH);

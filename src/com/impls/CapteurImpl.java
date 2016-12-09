@@ -3,6 +3,7 @@ package com.impls;
 import com.interfaces.AlgoDiffusion;
 import com.interfaces.Capteur;
 import com.interfaces.Observer;
+import com.utils.Constants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -51,7 +52,7 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public Integer getValue() {
-
+        Constants.showDebug("Capteur v:"+v+" v_copy:"+copy_v +"Algo :" +this.mAlgo.getClass().getName());
         return copy_v;
     }
 

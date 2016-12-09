@@ -5,4 +5,9 @@ package com.utils;
  */
 public class Constants {
     private static final boolean  DEBUG = false;
+    public static void showDebug(String value){
+        if(DEBUG){
+            System.out.println(value);
+        }
+    }
 }
