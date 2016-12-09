@@ -11,7 +11,6 @@ import com.utils.Constants;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import java.awt.*;
-import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -47,7 +46,7 @@ public class App {
         JFrame sJFrame = new JFrame();
 
         sJFrame.setTitle("Main App ");
-        sJFrame.setSize(300, 200);
+        sJFrame.setSize(300, 250);
         sJFrame.setResizable(false);
         sJFrame.setLocationRelativeTo(null);
         sJFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -140,14 +139,14 @@ public class App {
             capteur.attach(new Canal(id, capteur));
         });
 
-		JCheckBox jCheckBoxDebug = new JCheckBox("Debug");
-		jCheckBoxDebug.setSelected(false);
-		jCheckBoxDebug.addActionListener(e -> {
-            if(!jCheckBoxDebug.isSelected()){
+        JCheckBox jCheckBoxDebug = new JCheckBox("Debug");
+        jCheckBoxDebug.setSelected(false);
+        jCheckBoxDebug.addActionListener(e -> {
+            if (!jCheckBoxDebug.isSelected()) {
                 Constants.DEBUG = false;
-            }else{
-				Constants.DEBUG = true;
-			}
+            } else {
+                Constants.DEBUG = true;
+            }
         });
 
         JPanel panelChoice = new JPanel();
