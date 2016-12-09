@@ -16,7 +16,7 @@ public class CapteurImpl implements Capteur {
 
     private AlgoDiffusion mAlgo;
     private List<Observer> mObservers;
-    private List<Integer> mObserverRemaining;
+    private volatile List<Integer> mObserverRemaining;
     private Integer v;
     private Integer copy_v;
     private boolean isReading;
@@ -85,7 +85,7 @@ public class CapteurImpl implements Capteur {
     }
 
     @Override
-    public void removeIdFromList(Integer mCanalId) {
+    public synchronized void removeIdFromList(Integer mCanalId) {
         Constants.showDebug(this.getClass(), "Remove from list :  " + mCanalId + " size : " + mObserverRemaining.size());
         mObserverRemaining.remove(mCanalId);
     }
