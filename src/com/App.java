@@ -7,6 +7,7 @@ import com.impls.Canal;
 import com.impls.CapteurImpl;
 import com.interfaces.Observer;
 import com.utils.Constants;
+import com.utils.SchedulerSingleton;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -14,6 +15,7 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
  * Created by Guillaume on 29/11/2016.
@@ -34,12 +36,13 @@ public class App {
         diffusionSequentielle = new DiffusionSequentielle();
         diffusionEpoque = new DiffusionEpoque();
 
+        SchedulerSingleton.INSTANCE.setScheduler(new ScheduledThreadPoolExecutor(Constants.CORE_POOL_SIZE));
+
         capteur = new CapteurImpl(diffusionAtomique);
 
         for (int i = 0; i < Constants.NB_CAPTEUR; i++) {
             capteur.attach(new Canal(i, capteur));
         }
-
         displayWindow();
     }
 
