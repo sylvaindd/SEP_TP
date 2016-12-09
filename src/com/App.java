@@ -15,7 +15,6 @@ import java.awt.*;
 import java.awt.event.ActionListener;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
  * Created by Guillaume on 29/11/2016.
@@ -36,7 +35,7 @@ public class App {
         diffusionSequentielle = new DiffusionSequentielle();
         diffusionEpoque = new DiffusionEpoque();
 
-        SchedulerSingleton.INSTANCE.setScheduler(new ScheduledThreadPoolExecutor(Constants.CORE_POOL_SIZE));
+        SchedulerSingleton.INSTANCE.initScheduler();
 
         capteur = new CapteurImpl(diffusionAtomique);
 
@@ -145,13 +144,7 @@ public class App {
 
         JCheckBox jCheckBoxDebug = new JCheckBox("Debug");
         jCheckBoxDebug.setSelected(false);
-        jCheckBoxDebug.addActionListener(e -> {
-            if (!jCheckBoxDebug.isSelected()) {
-                Constants.DEBUG = false;
-            } else {
-                Constants.DEBUG = true;
-            }
-        });
+        jCheckBoxDebug.addActionListener(e -> Constants.DEBUG = jCheckBoxDebug.isSelected());
 
         JPanel panelChoice = new JPanel();
         panelChoice.setLayout(new GridLayout(3, 1));
@@ -168,5 +161,4 @@ public class App {
         panelButtons.add(panelChoice, BorderLayout.CENTER);
         panelButtons.add(subPanelButtons, BorderLayout.SOUTH);
     }
-
 }

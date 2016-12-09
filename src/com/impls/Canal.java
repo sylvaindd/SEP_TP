@@ -33,7 +33,7 @@ public class Canal implements ObserveurDeCapteur, CapteurAsync {
     @Override
     public Future getValue() {
         GetValue value = new GetValue(mCapteur, mId);
-        int random = ThreadLocalRandom.current().nextInt(500, 3000 + 1);
+        int random = ThreadLocalRandom.current().nextInt(500, 4000 + 1);
         return SchedulerSingleton.INSTANCE.getScheduler().schedule(value, random, TimeUnit.MILLISECONDS);
     }
 
@@ -41,7 +41,7 @@ public class Canal implements ObserveurDeCapteur, CapteurAsync {
     public Future update(Capteur s) {
         mCapteur = s;
         Update update = new Update(this, mAfficheur);
-        int random = ThreadLocalRandom.current().nextInt(500, 3000 + 1);
+        int random = ThreadLocalRandom.current().nextInt(500, 4000 + 1);
         return SchedulerSingleton.INSTANCE.getScheduler().schedule(update, random, TimeUnit.MILLISECONDS);
     }
 
