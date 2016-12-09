@@ -1,6 +1,7 @@
 package com;
 
 import com.algos.DiffusionAtomique;
+import com.algos.DiffusionEpoque;
 import com.algos.DiffusionSequentielle;
 import com.impls.Canal;
 import com.impls.CapteurImpl;
@@ -18,12 +19,14 @@ import java.util.TimerTask;
  */
 public class App {
 
-    private static final int NB_CAPTEUR = 10;
+    private static final int NB_CAPTEUR = 8;
     private static CapteurImpl capteur;
     private static Timer sTimer;
     private static DiffusionAtomique diffusionAtomique;
     private static DiffusionSequentielle diffusionSequentielle;
+    private static DiffusionEpoque diffusionEpoque;
     private static boolean sIsStarted = false;
+    private static JLabel mJLabelValueCapteur;
 
     public static void main(String[] args) {
         capteur = new CapteurImpl(new DiffusionAtomique());
@@ -34,6 +37,7 @@ public class App {
 
         diffusionAtomique = new DiffusionAtomique();
         diffusionSequentielle = new DiffusionSequentielle();
+        diffusionEpoque = new DiffusionEpoque();
 
         displayWindow();
     }
@@ -42,23 +46,31 @@ public class App {
         JFrame sJFrame = new JFrame();
 
         sJFrame.setTitle("Main App ");
-        sJFrame.setSize(300, 150);
+        sJFrame.setSize(300, 200);
         sJFrame.setResizable(false);
         sJFrame.setLocationRelativeTo(null);
         sJFrame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        JPanel mJPanelMain = new JPanel();
-        mJPanelMain.setLayout(new BorderLayout());
-        mJPanelMain.setBorder(new EmptyBorder(10, 10, 10, 10));
+        JPanel jPanelMain = new JPanel();
+        jPanelMain.setLayout(new BorderLayout());
+        jPanelMain.setBorder(new EmptyBorder(10, 10, 10, 10));
 
-        sJFrame.getContentPane().add(mJPanelMain);
+        sJFrame.getContentPane().add(jPanelMain);
+
+        JPanel panelValue = new JPanel();
+        panelValue.setLayout(new BorderLayout());
+        panelValue.add(new JLabel("Valeur Capteur : "), BorderLayout.WEST);
+        mJLabelValueCapteur = new JLabel("null");
+        panelValue.add(mJLabelValueCapteur, BorderLayout.CENTER);
+
+        jPanelMain.add(panelValue, BorderLayout.NORTH);
 
         JPanel panelButtons = new JPanel();
         panelButtons.setLayout(new BorderLayout());
 
         addButtons(panelButtons);
 
-        mJPanelMain.add(panelButtons, BorderLayout.CENTER);
+        jPanelMain.add(panelButtons, BorderLayout.CENTER);
 
         sJFrame.setVisible(true);
     }
@@ -70,19 +82,25 @@ public class App {
 
         JRadioButton jbrDiffusionSequentielle = new JRadioButton("DiffusionSequentielle");
 
+        JRadioButton jbrDiffusionEpoque = new JRadioButton("DiffusionEpoque");
+
         ActionListener changeDiffusionSelected = e -> {
             if (jbrDiffusionAtomique.isSelected()) {
                 capteur.setAlgo(diffusionAtomique);
-            } else {
+            } else if (jbrDiffusionSequentielle.isSelected()) {
                 capteur.setAlgo(diffusionSequentielle);
+            } else if (jbrDiffusionEpoque.isSelected()) {
+                capteur.setAlgo(diffusionEpoque);
             }
         };
 
         jbrDiffusionSequentielle.addActionListener(changeDiffusionSelected);
         jbrDiffusionAtomique.addActionListener(changeDiffusionSelected);
+        jbrDiffusionEpoque.addActionListener(changeDiffusionSelected);
 
         bgAlgoDiffusion.add(jbrDiffusionAtomique);
         bgAlgoDiffusion.add(jbrDiffusionSequentielle);
+        bgAlgoDiffusion.add(jbrDiffusionEpoque);
 
         JButton jButtonStart = new JButton("START");
         jButtonStart.addActionListener(e -> {
@@ -96,6 +114,7 @@ public class App {
                     @Override
                     public void run() {
                         capteur.tick();
+                        mJLabelValueCapteur.setText(capteur.getV().toString());
                     }
                 }, 0, 1000);
                 sIsStarted = true;
@@ -121,9 +140,10 @@ public class App {
         });
 
         JPanel panelChoice = new JPanel();
-        panelChoice.setLayout(new GridLayout(2, 1));
+        panelChoice.setLayout(new GridLayout(3, 1));
         panelChoice.add(jbrDiffusionAtomique);
         panelChoice.add(jbrDiffusionSequentielle);
+        panelChoice.add(jbrDiffusionEpoque);
 
         JPanel subPanelButtons = new JPanel();
         subPanelButtons.setLayout(new GridLayout(2, 1));

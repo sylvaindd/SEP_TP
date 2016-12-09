@@ -55,6 +55,11 @@ public class CapteurImpl implements Capteur {
     }
 
     @Override
+    public Integer getV() {
+        return v;
+    }
+
+    @Override
     public List<Observer> getListObserver() {
         return mObservers;
     }
