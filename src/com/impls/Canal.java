@@ -5,6 +5,7 @@ import com.callable.Update;
 import com.interfaces.Capteur;
 import com.interfaces.CapteurAsync;
 import com.interfaces.ObserveurDeCapteur;
+import com.utils.Constants;
 
 import java.util.concurrent.Future;
 import java.util.concurrent.ScheduledExecutorService;
@@ -24,7 +25,7 @@ public class Canal implements ObserveurDeCapteur, CapteurAsync {
     public Canal(Integer id, Capteur s) {
         mId = id;
         mCapteur = s;
-        mScheduler = new ScheduledThreadPoolExecutor(20);
+        mScheduler = new ScheduledThreadPoolExecutor(Constants.CORE_POOL_SIZE);
         mAfficheur = new Afficheur(id, this);
     }
 

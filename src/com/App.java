@@ -21,7 +21,6 @@ import java.util.TimerTask;
  */
 public class App {
 
-    private static final int NB_CAPTEUR = 8;
     private static CapteurImpl capteur;
     private static Timer sTimer;
     private static DiffusionAtomique diffusionAtomique;
@@ -33,7 +32,7 @@ public class App {
     public static void main(String[] args) {
         capteur = new CapteurImpl(new DiffusionAtomique());
 
-        for (int i = 0; i < NB_CAPTEUR; i++) {
+        for (int i = 0; i < Constants.NB_CAPTEUR; i++) {
             capteur.attach(new Canal(i, capteur));
         }
 
