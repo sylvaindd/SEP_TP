@@ -6,7 +6,7 @@ package com.utils;
 public class Constants {
     public static boolean DEBUG = false;
     public static final int NB_CAPTEUR = 4;
-    public static final int CORE_POOL_SIZE = 2;
+    public static final int CORE_POOL_SIZE = 20;
 
     public static void showDebug(Class cl, String value) {
         if (DEBUG) {
