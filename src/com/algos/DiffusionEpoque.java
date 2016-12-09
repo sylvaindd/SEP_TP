@@ -5,7 +5,7 @@ import com.interfaces.Capteur;
 import com.interfaces.Observer;
 
 /**
- * Created by Guillaume on 09/12/2016.
+ * Algo without restrictions, the Afficheur's value is updated when it get the value from the Capteur
  */
 public class DiffusionEpoque implements AlgoDiffusion {
 
@@ -22,7 +22,7 @@ public class DiffusionEpoque implements AlgoDiffusion {
     public void execute() {
         mCapteur.inc();
         for (Observer observer : mCapteur.getListObserver()) {
-            observer.update(mCapteur);
+            mCapteur.setFuture(observer.update(mCapteur));
         }
     }
 }

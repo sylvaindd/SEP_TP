@@ -6,7 +6,7 @@ import com.algos.DiffusionSequentielle;
 import com.impls.Canal;
 import com.impls.CapteurImpl;
 import com.interfaces.Observer;
-import com.utils.Constants;
+import com.utils.Utils;
 import com.utils.SchedulerSingleton;
 
 import javax.swing.*;
@@ -17,7 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Created by Guillaume on 29/11/2016.
+ * Class to launch the App
  */
 public class App {
 
@@ -39,7 +39,7 @@ public class App {
 
         capteur = new CapteurImpl(diffusionAtomique);
 
-        for (int i = 0; i < Constants.NB_CAPTEUR; i++) {
+        for (int i = 0; i < Utils.NB_CAPTEUR; i++) {
             capteur.attach(new Canal(i, capteur));
         }
         displayWindow();
@@ -144,7 +144,7 @@ public class App {
 
         JCheckBox jCheckBoxDebug = new JCheckBox("Debug");
         jCheckBoxDebug.setSelected(false);
-        jCheckBoxDebug.addActionListener(e -> Constants.DEBUG = jCheckBoxDebug.isSelected());
+        jCheckBoxDebug.addActionListener(e -> Utils.DEBUG = jCheckBoxDebug.isSelected());
 
         JPanel panelChoice = new JPanel();
         panelChoice.setLayout(new GridLayout(3, 1));

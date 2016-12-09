@@ -2,7 +2,7 @@ package com.impls;
 
 import com.interfaces.CapteurAsync;
 import com.interfaces.ObserveurDeCapteurAsync;
-import com.utils.Constants;
+import com.utils.Utils;
 
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
@@ -12,7 +12,7 @@ import java.awt.event.WindowEvent;
 import java.util.concurrent.ExecutionException;
 
 /**
- * Created by Sylvain on 28/11/2016.
+ * Implementation and display of Observateur de capteur asynchrone
  */
 public class Afficheur implements ObserveurDeCapteurAsync {
 
@@ -74,11 +74,11 @@ public class Afficheur implements ObserveurDeCapteurAsync {
     }
 
     @Override
-    public void  update(CapteurAsync capteurAsync) {
+    public void update(CapteurAsync capteurAsync) {
         try {
             String value = capteurAsync.getValue().get().toString();
             mJLabelValue.setText(value);
-            Constants.showDebug(this.getClass(), "Valeur " + mCanalName + " : " + value);
+            Utils.showDebug(this.getClass(), "Valeur " + mCanalName + " : " + value);
         } catch (InterruptedException | ExecutionException e) {
             e.printStackTrace();
         }

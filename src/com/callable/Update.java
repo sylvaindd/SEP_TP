@@ -6,7 +6,7 @@ import com.interfaces.CapteurAsync;
 import java.util.concurrent.Callable;
 
 /**
- * Created by Sylvain on 28/11/2016.
+ * Callable call by the scheduler to update the Afficheur
  */
 public class Update implements Callable {
 

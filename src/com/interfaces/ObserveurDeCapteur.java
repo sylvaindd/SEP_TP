@@ -3,7 +3,7 @@ package com.interfaces;
 import java.util.concurrent.Future;
 
 /**
- * Created by thoma on 28/11/2016.
+ * Observateur de capteur interface
  */
 public interface ObserveurDeCapteur extends Observer<Capteur> {
 

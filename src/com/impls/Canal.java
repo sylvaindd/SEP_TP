@@ -12,7 +12,8 @@ import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Created by Sylvain on 28/11/2016.
+ * Implementation of Observateur de capteur and Capteur asynchrone
+ * With all method to manage Canal
  */
 public class Canal implements ObserveurDeCapteur, CapteurAsync {
 

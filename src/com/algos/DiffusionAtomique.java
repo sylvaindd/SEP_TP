@@ -5,7 +5,7 @@ import com.interfaces.Capteur;
 import com.interfaces.Observer;
 
 /**
- * Created by Guillaume on 29/11/2016.
+ * Algo which increment the capteur's value only when all Afficheur's value have increased
  */
 public class DiffusionAtomique implements AlgoDiffusion {
 
@@ -24,7 +24,7 @@ public class DiffusionAtomique implements AlgoDiffusion {
             mCapteur.inc();
             mCapteur.loadFromCanals();
             for (Observer observer : mCapteur.getListObserver()) {
-                observer.update(mCapteur);
+                mCapteur.setFuture(observer.update(mCapteur));
             }
         }
     }

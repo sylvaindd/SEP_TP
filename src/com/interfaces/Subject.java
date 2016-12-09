@@ -1,7 +1,7 @@
 package com.interfaces;
 
 /**
- * Created by Sylvain on 28/11/2016.
+ * Observable interface
  */
 public interface Subject {
     void attach(Observer o);

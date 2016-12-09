@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.concurrent.Future;
 
 /**
- * Created by Sylvain on 21/11/2016.
+ * Observable, with method for a Capteur
  */
 public interface Capteur extends Subject {
     void attach(Observer o);

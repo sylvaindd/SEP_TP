@@ -3,14 +3,14 @@ package com.impls;
 import com.interfaces.AlgoDiffusion;
 import com.interfaces.Capteur;
 import com.interfaces.Observer;
-import com.utils.Constants;
+import com.utils.Utils;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.Future;
 
 /**
- * Created by Sylvain on 28/11/2016.
+ * Capteur implementation, with all the method we need to be generic
  */
 public class CapteurImpl implements Capteur {
 
@@ -20,7 +20,7 @@ public class CapteurImpl implements Capteur {
     private Integer v;
     private Integer copy_v;
     private boolean isReading;
-    private Future mFuture;
+    private Future mFuture; // not used
 
 
     public CapteurImpl(AlgoDiffusion algoDiffusion) {
@@ -52,7 +52,7 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public Integer getValue() {
-        Constants.showDebug(this.getClass(), " v:" + v + " v_copy:" + copy_v + " algo :" + this.mAlgo.getClass().getName());
+        Utils.showDebug(this.getClass(), " v:" + v + " v_copy:" + copy_v + " algo :" + this.mAlgo.getClass().getName());
         return copy_v;
     }
 
@@ -86,7 +86,7 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public synchronized void removeIdFromList(Integer mCanalId) {
-        Constants.showDebug(this.getClass(), "Remove from list :  " + mCanalId + " size : " + mObserverRemaining.size());
+        Utils.showDebug(this.getClass(), "Remove from list :  " + mCanalId + " size : " + mObserverRemaining.size());
         mObserverRemaining.remove(mCanalId);
     }
 

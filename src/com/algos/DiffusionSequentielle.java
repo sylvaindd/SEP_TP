@@ -5,7 +5,7 @@ import com.interfaces.Capteur;
 import com.interfaces.Observer;
 
 /**
- * Created by thoma on 28/11/2016.
+ * Algo which increment all the time the capteur's value but wait all the canal before increasing the Afficheur's value
  */
 public class DiffusionSequentielle implements AlgoDiffusion {
     private Capteur mCapteur;
@@ -24,7 +24,7 @@ public class DiffusionSequentielle implements AlgoDiffusion {
             mCapteur.inc();
             mCapteur.loadFromCanals();
             for (Observer observer : mCapteur.getListObserver()) {
-                observer.update(mCapteur);
+                mCapteur.setFuture(observer.update(mCapteur));
             }
         } else {
             mCapteur.setReading(true);

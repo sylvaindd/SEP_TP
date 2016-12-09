@@ -1,7 +1,7 @@
 package com.interfaces;
 
 /**
- * Created by Guillaume on 29/11/2016.
+ * Interface for the different aglo
  */
 public interface AlgoDiffusion {
     void configure(Capteur s);

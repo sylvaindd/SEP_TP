@@ -4,7 +4,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 
 /**
- * Created by Guillaume on 09/12/2016.
+ * Singleton to have only one scheduler
  */
 public enum SchedulerSingleton {
     INSTANCE;
@@ -16,6 +16,6 @@ public enum SchedulerSingleton {
     }
 
     public void initScheduler() {
-        this.mScheduler = new ScheduledThreadPoolExecutor(Constants.CORE_POOL_SIZE);
+        this.mScheduler = new ScheduledThreadPoolExecutor(Utils.CORE_POOL_SIZE);
     }
 }

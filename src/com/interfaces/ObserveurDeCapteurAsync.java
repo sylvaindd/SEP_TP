@@ -1,7 +1,7 @@
 package com.interfaces;
 
 /**
- * Created by thoma on 28/11/2016.
+ * Observateur asynchrone interface
  */
 public interface ObserveurDeCapteurAsync {
 
