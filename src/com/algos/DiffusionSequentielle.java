@@ -13,6 +13,7 @@ public class DiffusionSequentielle implements AlgoDiffusion {
     @Override
     public void configure(Capteur s) {
         mCapteur = s;
+        mCapteur.setReading(false);
     }
 
     @Override
