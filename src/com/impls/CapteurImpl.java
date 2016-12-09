@@ -31,9 +31,9 @@ public class CapteurImpl implements Capteur {
         mAlgo.configure(this);
     }
 
-    public void setAlgo(AlgoDiffusion mAlgo) {
-        this.mAlgo = mAlgo;
-        mAlgo.configure(this);
+    public void setAlgo(AlgoDiffusion algo) {
+        this.mAlgo = algo;
+        this.mAlgo.configure(this);
     }
 
     @Override
@@ -51,6 +51,7 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public Integer getValue() {
+
         return copy_v;
     }
 
