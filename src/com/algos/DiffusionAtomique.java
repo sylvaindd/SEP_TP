@@ -3,7 +3,6 @@ package com.algos;
 import com.interfaces.AlgoDiffusion;
 import com.interfaces.Capteur;
 import com.interfaces.Observer;
-import com.utils.Constants;
 
 /**
  * Created by Guillaume on 29/11/2016.
@@ -27,7 +26,6 @@ public class DiffusionAtomique implements AlgoDiffusion {
             for (Observer observer : mCapteur.getListObserver()) {
                 observer.update(mCapteur);
             }
-            Constants.showDebug(this.getClass(), "algo fini");
         }
     }
 }
