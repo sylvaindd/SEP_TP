@@ -33,8 +33,8 @@ public class CapteurImpl implements Capteur {
     }
 
     public void setAlgo(AlgoDiffusion algo) {
-        this.mAlgo = algo;
-        this.mAlgo.configure(this);
+        mAlgo = algo;
+        mAlgo.configure(this);
     }
 
     @Override
@@ -52,7 +52,7 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public Integer getValue() {
-        Constants.showDebug(this.getClass()," v:"+v+" v_copy:"+copy_v +" algo :" +this.mAlgo.getClass().getName());
+        Constants.showDebug(this.getClass(), " v:" + v + " v_copy:" + copy_v + " algo :" + this.mAlgo.getClass().getName());
         return copy_v;
     }
 
@@ -86,13 +86,18 @@ public class CapteurImpl implements Capteur {
 
     @Override
     public void removeIdFromList(Integer mCanalId) {
-        Constants.showDebug(this.getClass(),"Remove from list :  " + mCanalId + " size : "+mObserverRemaining.size());
+        Constants.showDebug(this.getClass(), "Remove from list :  " + mCanalId + " size : " + mObserverRemaining.size());
         mObserverRemaining.remove(mCanalId);
     }
 
     @Override
-    public void initListIdFromCanals() {
+    public void initListRemainingId() {
         mObserverRemaining = new ArrayList<>();
+    }
+
+    @Override
+    public void loadFromCanals() {
+        initListRemainingId();
         for (Observer observer : mObservers) {
             mObserverRemaining.add(observer.getId());
         }

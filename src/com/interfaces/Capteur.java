@@ -25,7 +25,9 @@ public interface Capteur extends Subject {
 
     void removeIdFromList(Integer mCanalId);
 
-    void initListIdFromCanals();
+    void initListRemainingId();
+
+    void loadFromCanals();
 
     boolean isListRemainingEmpty();
 

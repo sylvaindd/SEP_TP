@@ -15,6 +15,7 @@ public class DiffusionAtomique implements AlgoDiffusion {
     @Override
     public void configure(Capteur s) {
         mCapteur = s;
+        mCapteur.initListRemainingId();
         mCapteur.setReading(false);
     }
 
@@ -22,7 +23,7 @@ public class DiffusionAtomique implements AlgoDiffusion {
     public void execute() {
         if (mCapteur.isListRemainingEmpty()) {
             mCapteur.inc();
-            mCapteur.initListIdFromCanals();
+            mCapteur.loadFromCanals();
             for (Observer observer : mCapteur.getListObserver()) {
                 observer.update(mCapteur);
             }

@@ -14,6 +14,7 @@ public class DiffusionEpoque implements AlgoDiffusion {
     @Override
     public void configure(Capteur s) {
         mCapteur = s;
+        mCapteur.initListRemainingId();
         mCapteur.setReading(false);
     }
 

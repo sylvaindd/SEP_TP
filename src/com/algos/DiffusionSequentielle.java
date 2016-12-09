@@ -13,6 +13,7 @@ public class DiffusionSequentielle implements AlgoDiffusion {
     @Override
     public void configure(Capteur s) {
         mCapteur = s;
+        mCapteur.initListRemainingId();
         mCapteur.setReading(false);
     }
 
@@ -21,7 +22,7 @@ public class DiffusionSequentielle implements AlgoDiffusion {
         if (mCapteur.isListRemainingEmpty()) {
             mCapteur.setReading(false);
             mCapteur.inc();
-            mCapteur.initListIdFromCanals();
+            mCapteur.loadFromCanals();
             for (Observer observer : mCapteur.getListObserver()) {
                 observer.update(mCapteur);
             }
