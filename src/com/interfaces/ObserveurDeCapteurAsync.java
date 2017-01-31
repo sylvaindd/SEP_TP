@@ -5,5 +5,10 @@ package com.interfaces;
  */
 public interface ObserveurDeCapteurAsync {
 
+    /**
+     * Update the observer from a capteurAsync
+     *
+     * @param capteurAsync the capteur async
+     */
     void update(CapteurAsync capteurAsync);
 }

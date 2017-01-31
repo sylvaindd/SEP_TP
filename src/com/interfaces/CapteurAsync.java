@@ -7,6 +7,11 @@ import java.util.concurrent.Future;
  */
 public interface CapteurAsync {
 
+    /**
+     * Gets value.
+     *
+     * @return the value
+     */
     Future getValue();
 
 }

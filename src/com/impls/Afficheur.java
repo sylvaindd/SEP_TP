@@ -31,6 +31,12 @@ public class Afficheur implements ObserveurDeCapteurAsync {
         marginWidth = (int) ((screenWidth - (nbByWidth * 300)) / (nbByWidth - 1));
     }
 
+    /**
+     * Instantiates a new Afficheur.
+     *
+     * @param number the id of an Afficheur
+     * @param canal  the canal
+     */
     public Afficheur(int number, Canal canal) {
         mCanalName = "Canal " + number;
         mNumber = number;
@@ -38,6 +44,9 @@ public class Afficheur implements ObserveurDeCapteurAsync {
         displayWindow();
     }
 
+    /**
+     * Initializing view of an Afficheur
+     */
     private void displayWindow() {
         JFrame mJFrame = new JFrame();
 
@@ -73,6 +82,10 @@ public class Afficheur implements ObserveurDeCapteurAsync {
         mJFrame.setVisible(true);
     }
 
+    /**
+     * Update an afficheur
+     * @param capteurAsync the capteurasync(canal) that the afficheur is connected to
+     */
     @Override
     public void update(CapteurAsync capteurAsync) {
         try {

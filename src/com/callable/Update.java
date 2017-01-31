@@ -13,6 +13,12 @@ public class Update implements Callable {
     private final CapteurAsync mCapteurAsync;
     private final Afficheur mAfficheur;
 
+    /**
+     * Instantiates a new Update.
+     *
+     * @param capteurAsync the capteur async
+     * @param afficheur    the afficheur
+     */
     public Update(CapteurAsync capteurAsync, Afficheur afficheur) {
         mCapteurAsync = capteurAsync;
         mAfficheur = afficheur;

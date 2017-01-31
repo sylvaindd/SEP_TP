@@ -18,6 +18,7 @@ public class DiffusionAtomique implements AlgoDiffusion {
         mCapteur.setReading(false);
     }
 
+
     @Override
     public void execute() {
         if (mCapteur.isListRemainingEmpty()) {

@@ -17,6 +17,10 @@ public class DiffusionSequentielle implements AlgoDiffusion {
         mCapteur.setReading(false);
     }
 
+    /**
+     * Update all the observer only if they have all the same value
+     * otherwise just increment the capteur
+     */
     @Override
     public void execute() {
         if (mCapteur.isListRemainingEmpty()) {

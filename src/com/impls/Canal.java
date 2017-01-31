@@ -21,16 +21,29 @@ public class Canal implements ObserveurDeCapteur, CapteurAsync {
     private final Integer mId;
     private Capteur mCapteur;
 
-    public Canal(Integer id, Capteur s) {
+    /**
+     * Instantiates a new Canal.
+     *
+     * @param id the id
+     * @param c  the capteur
+     */
+    public Canal(Integer id, Capteur c) {
         mId = id;
-        mCapteur = s;
+        mCapteur = c;
         mAfficheur = new Afficheur(id, this);
     }
 
+    /**
+     * Detach a canal
+     */
     public void detach() {
         mCapteur.detach(this);
     }
 
+    /**
+     * Get the actual value
+     * @return Future
+     */
     @Override
     public Future getValue() {
         GetValue value = new GetValue(mCapteur, mId);
@@ -38,9 +51,15 @@ public class Canal implements ObserveurDeCapteur, CapteurAsync {
         return SchedulerSingleton.INSTANCE.getScheduler().schedule(value, random, TimeUnit.MILLISECONDS);
     }
 
+    /**
+     * Update the observer from a capteur
+     *
+     * @param c Capteur
+     * @return Future
+     */
     @Override
-    public Future update(Capteur s) {
-        mCapteur = s;
+    public Future update(Capteur c) {
+        mCapteur = c;
         Update update = new Update(this, mAfficheur);
         int random = ThreadLocalRandom.current().nextInt(500, 4000 + 1);
         return SchedulerSingleton.INSTANCE.getScheduler().schedule(update, random, TimeUnit.MILLISECONDS);

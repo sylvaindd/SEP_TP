@@ -17,7 +17,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 /**
- * Class to launch the App
+ * Class to launch the main App
  */
 public class App {
 
@@ -29,6 +29,11 @@ public class App {
     private static boolean sIsStarted = false;
     private static JLabel mJLabelValueCapteur;
 
+    /**
+     * The entry point of application.
+     *
+     * @param args the input arguments
+     */
     public static void main(String[] args) {
 
         diffusionAtomique = new DiffusionAtomique();
@@ -45,6 +50,9 @@ public class App {
         displayWindow();
     }
 
+    /**
+     * Initialing the main view of the App
+     */
     private static void displayWindow() {
         JFrame sJFrame = new JFrame();
 
@@ -78,6 +86,11 @@ public class App {
         sJFrame.setVisible(true);
     }
 
+    /**
+     * Add the main buttons to the app
+     *
+     * @param panelButtons Jpanel of the buttons
+     */
     private static void addButtons(JPanel panelButtons) {
         ButtonGroup bgAlgoDiffusion = new ButtonGroup();
         final JRadioButton jbrDiffusionAtomique = new JRadioButton("DiffusionAtomique");
@@ -86,7 +99,7 @@ public class App {
         JRadioButton jbrDiffusionSequentielle = new JRadioButton("DiffusionSequentielle");
 
         JRadioButton jbrDiffusionEpoque = new JRadioButton("DiffusionEpoque");
-
+        //RadioButton to change the Dissemination algorithm
         ActionListener changeDiffusionSelected = e -> {
             if (jbrDiffusionAtomique.isSelected()) {
                 capteur.setAlgo(diffusionAtomique);
@@ -105,6 +118,7 @@ public class App {
         bgAlgoDiffusion.add(jbrDiffusionSequentielle);
         bgAlgoDiffusion.add(jbrDiffusionEpoque);
 
+        //button to start capteurs
         JButton jButtonStart = new JButton("START");
         jButtonStart.addActionListener(e -> {
             if (sIsStarted) {
@@ -125,6 +139,7 @@ public class App {
             }
         });
 
+        //Button to add a canal view
         JButton jButtonAddCanal = new JButton("Add Canal");
         jButtonAddCanal.addActionListener(e -> {
             int prev = 0, id = 0;

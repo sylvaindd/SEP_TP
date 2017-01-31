@@ -23,6 +23,11 @@ public class CapteurImpl implements Capteur {
     private Future mFuture; // not used
 
 
+    /**
+     * Instantiates a new Capteur.
+     *
+     * @param algoDiffusion the algo diffusion
+     */
     public CapteurImpl(AlgoDiffusion algoDiffusion) {
         mAlgo = algoDiffusion;
         mObservers = new ArrayList<>();
@@ -32,16 +37,29 @@ public class CapteurImpl implements Capteur {
         mAlgo.configure(this);
     }
 
-    public void setAlgo(AlgoDiffusion algo) {
-        mAlgo = algo;
+    /**
+     * Sets algoDiffusion.
+     *
+     * @param algoDiffusion the Dissemination algorithm
+     */
+    public void setAlgo(AlgoDiffusion algoDiffusion) {
+        mAlgo = algoDiffusion;
         mAlgo.configure(this);
     }
 
+    /**
+     * Add an Observer (a canal) to the capteur
+     * @param o an Observer
+     */
     @Override
     public void attach(Observer o) {
         mObservers.add(o);
     }
 
+    /**
+     * detache an observer
+     * @param o the observer
+     */
     @Override
     public void detach(Observer o) {
         mObservers.remove(o);
@@ -50,27 +68,45 @@ public class CapteurImpl implements Capteur {
         }
     }
 
+    /**
+     * get the actual value of the capteur according to the algo
+     * @return Integer
+     */
     @Override
     public Integer getValue() {
         Utils.showDebug(this.getClass(), " v:" + v + " v_copy:" + copy_v + " algo :" + this.mAlgo.getClass().getName());
         return copy_v;
     }
 
+    /**
+     * get the real value of the capteur
+     * @return Integer
+     */
     @Override
     public Integer getV() {
         return v;
     }
 
+    /**
+     * get a List of all the oberservers
+     * @return List<Observer>
+     */
     @Override
     public List<Observer> getListObserver() {
         return mObservers;
     }
 
+    /**
+     * simulate a new tick
+     */
     @Override
     public void tick() {
         mAlgo.execute();
     }
 
+    /**
+     * change the value of the capteur according to the algo
+     */
     @Override
     public void inc() {
         v++;

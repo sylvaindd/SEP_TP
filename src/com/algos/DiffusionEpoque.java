@@ -18,6 +18,9 @@ public class DiffusionEpoque implements AlgoDiffusion {
         mCapteur.setReading(false);
     }
 
+    /**
+     * update the observer when the capteur is increment
+     */
     @Override
     public void execute() {
         mCapteur.inc();
